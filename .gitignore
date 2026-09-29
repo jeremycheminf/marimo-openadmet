@@ -40,10 +40,11 @@ dist/
 venv/
 *.jsonc
 
-# --- Folders not needed ---
+# --- Folders not needed or old files ---
 docs/
 dev/
 tests/
+notebook_old.py
 
 # --- Editors / OS ---
 .vscode/

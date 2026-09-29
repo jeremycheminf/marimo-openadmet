@@ -31,12 +31,6 @@ line-length = 100
 select = ["E", "F", "W", "I"]
 ignore = ["E501"]
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["src"]   # run `pytest` without needing `pip install -e .` first
-markers = [
-    "slow: long-running tests (deselect with -m 'not slow')",
-]
 [tool.marimo.runtime]
 # run all cells when the notebook opens (the VS Code extension defaults to lazy)
 auto_instantiate = true
