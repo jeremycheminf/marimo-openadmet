@@ -1,0 +1,60 @@
+# --- Data: keep the folders (.gitkeep), ignore their contents ---
+data/**
+!data/
+!data/*/
+!data/**/.gitkeep
+# Whitelist small tracked files explicitly, e.g.:
+# !data/raw/reference_smiles.csv
+
+# --- Generated outputs: keep folders, ignore artifacts ---
+logs/**
+!logs/
+!logs/.gitkeep
+
+models/**
+!models/
+!models/.gitkeep
+
+results/figures/**
+results/metrics/**
+results/tables/**
+!results/figures/.gitkeep
+!results/metrics/.gitkeep
+!results/tables/.gitkeep
+
+# --- Local config (the example is tracked, the real one is not) ---
+config/config.yaml
+config/*.local.*
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+*.jsonc
+
+# --- Folders not needed ---
+docs/
+dev/
+tests/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Scratch / session caches (never part of the submission) ---
+tmp/
+__marimo__/
+
+# --- Notebook assets ARE tracked: they are what molab fetches over raw URLs ---
+!assets/
+!assets/**

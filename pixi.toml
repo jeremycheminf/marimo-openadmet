@@ -1,0 +1,58 @@
+[workspace]
+name = "marimo_openadmet"
+version = "0.1.0"
+description = "Active learning and LogD benchmark for marimo notebook competition #3."
+authors = ["Jérémy"]
+channels = ["conda-forge"]
+platforms = ["win-64", { name = "win-64-cuda", platform = "win-64", cuda = "13" }]
+
+[dependencies]
+python = ">=3.11"
+pandas = ">=2.0"
+pyarrow = "*"
+rdkit = "*"
+scikit-learn = "*"
+pytest = "*"
+xgboost = "*"
+lightgbm = "*"
+marimo = "*"
+umap-learn = "*"
+chemprop= ">=2.0"
+
+[pypi-dependencies]
+altair = "*"
+wigglystuff = "*"
+chembl-webresource-client = "*"
+datasets = "*"
+plotly = "*"
+psutil = "*"
+nbformat = "*"
+uv = "*"
+
+[tasks]
+notebook = { cmd = "marimo edit notebook_slim.py", description = "Open the notebook in the editor (code hidden per cell; toggle with the cell menu)" }
+view = { cmd = "marimo run notebook_slim.py", description = "Read-only app view, no code" }
+build-assets = { cmd = "python scripts/10_build_notebook_assets.py", description = "Rebuild assets/ from results/metrics" }
+test = "pytest"
+progress = { cmd = "python scripts/check_progress.py", description = "Show buy-sweep progress (runs done/left, process, ETA)" }
+
+# --- GPU environment for LOCAL data generation only -------------------------
+# The notebook itself must stay CPU/sklearn-only so it runs on molab (see the
+# PEP 723 header in notebook_slim.py). This env exists purely to make the offline
+# chemprop sweeps usable on the local RTX A500: conda-forge ships a CUDA build
+# of pytorch for win-64, and lightning auto-detects it, so no code change is
+# needed. Kept as a separate feature so the working `default` env -- and the
+# molab path -- are untouched.
+#   pixi run -e gpu python scripts/09_active_learning_buy_chemprop.py ...
+# pixi only exposes the __cuda virtual package to an environment that declares
+# it, so the solver needs this even though `pixi info` reports __cuda=13.2.
+# Declared on the platform entry: the older [system-requirements] table is
+# deprecated and pixi warns on every invocation.
+[feature.gpu]
+platforms = ["win-64-cuda"]
+
+[feature.gpu.dependencies]
+pytorch = { version = "2.13.*", build = "cuda*" }
+
+[environments]
+gpu = ["gpu"]

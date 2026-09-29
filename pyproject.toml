@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "marimo_openadmet"          
+version = "0.1.0"
+description = "Active learning and LogD benchmark for marimo notebook competition #3."
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "pandas>=2.0",
+    "pyarrow",
+    "rdkit",
+    "scikit-learn",
+    "xgboost",
+    "lightgbm",
+    "marimo",
+    "umap-learn",
+    "altair>=5",
+    "chembl-webresource-client",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]   # run `pytest` without needing `pip install -e .` first
+markers = [
+    "slow: long-running tests (deselect with -m 'not slow')",
+]
+[tool.marimo.runtime]
+# run all cells when the notebook opens (the VS Code extension defaults to lazy)
+auto_instantiate = true
