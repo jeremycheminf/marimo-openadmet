@@ -54,7 +54,12 @@ Thumbs.db
 
 # --- Scratch / session caches (never part of the submission) ---
 tmp/
-__marimo__/
+# marimo caches stay local, but the session snapshot is what molab's static
+# preview renders its outputs from -- commit it
+__marimo__/*
+!__marimo__/session/
+__marimo__/session/*
+!__marimo__/session/notebook_slim.py.json
 
 # --- Notebook assets ARE tracked: they are what molab fetches over raw URLs ---
 !assets/

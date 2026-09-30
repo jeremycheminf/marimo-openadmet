@@ -973,7 +973,7 @@ def _(metrics_all, mo, model_picker):
     _fracs = sorted({int(round(f * 100)) for f in _m["fraction"].dropna().unique()})
     strategy_picker = mo.ui.multiselect(
         options=_strats,
-        value=[s for s in ("random", "diversity", "uncertainty") if s in _strats],
+        value=[s for s in ("random", "diversity", "uncertainty", "similarity") if s in _strats],
         label="Strategies",
     )
     fraction_picker = mo.ui.dropdown(
